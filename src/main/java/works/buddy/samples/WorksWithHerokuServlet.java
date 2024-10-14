@@ -1,5 +1,5 @@
 package works.buddy.samples;
-
+// do it faster
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +17,3 @@ public class WorksWithHerokuServlet extends HttpServlet {
         writer.close();
     }
 }
-
-// lala laaa
-// hello world!!!!!
