@@ -17,10 +17,10 @@ import com.bittercode.util.DBUtil;
 
 public class UserServiceImpl implements UserService {
 
-    private static final String registerUserQuery = "INSERT INTO " + UsersDBConstants.TABLE_USERS
+    private static final String REGISTER_USER_QUERY = "INSERT INTO " + UsersDBConstants.TABLE_USERS
             + "  VALUES(?,?,?,?,?,?,?,?)";
 
-    private static final String loginUserQuery = "SELECT * FROM " + UsersDBConstants.TABLE_USERS + " WHERE "
+    private static final String LOGIN_USER_QUERY = "SELECT * FROM " + UsersDBConstants.TABLE_USERS + " WHERE "
             + UsersDBConstants.COLUMN_USERNAME + "=? AND " + UsersDBConstants.COLUMN_PASSWORD + "=? AND "
             + UsersDBConstants.COLUMN_USERTYPE + "=?";
 
@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
         User user = null;
         try {
             String userType = UserRole.SELLER.equals(role) ? "1" : "2";
-            ps = con.prepareStatement(loginUserQuery);
+            ps = con.prepareStatement(LOGIN_USER_QUERY);
             ps.setString(1, email);
             ps.setString(2, password);
             ps.setString(3, userType);
@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
         String responseMessage = ResponseCode.FAILURE.name();
         Connection con = DBUtil.getConnection();
         try {
-            PreparedStatement ps = con.prepareStatement(registerUserQuery);
+            PreparedStatement ps = con.prepareStatement(REGISTER_USER_QUERY);
             ps.setString(1, user.getEmailId());
             ps.setString(2, user.getPassword());
             ps.setString(3, user.getFirstName());
@@ -84,7 +84,6 @@ public class UserServiceImpl implements UserService {
             int k = ps.executeUpdate();
             if (k == 1) {
                 responseMessage = ResponseCode.SUCCESS.name();
-                ;
             }
         } catch (Exception e) {
             responseMessage += " : " + e.getMessage();
