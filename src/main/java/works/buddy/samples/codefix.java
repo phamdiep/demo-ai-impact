@@ -14,7 +14,7 @@ public class CreateFile {
             File myObj = new File("filename.txt");
             if (myObj.createNewFile()) {
                 if (DEBUG) {
-                    logger.log(Level.INFO, "File created: " + myObj.getName());
+                    logger.log(Level.INFO, () -> "File created: " + myObj.getName());
                 }
             } else {
                 if (DEBUG) {
