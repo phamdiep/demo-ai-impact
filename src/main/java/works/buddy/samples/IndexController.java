@@ -1,4 +1,4 @@
-package com.github.hackathon.advancedsecurityjava.Controllers;
+package com.github.hackathon.advancedsecurityjava.controllers;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.github.hackathon.advancedsecurityjava.Application;
-import com.github.hackathon.advancedsecurityjava.Models.Book;
+import com.github.hackathon.advancedsecurityjava.models.Book;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -61,7 +61,10 @@ public class IndexController {
       }
 
     } catch (SQLException error) {
-      error.printStackTrace();
+      // Ensure debug feature is deactivated before delivering the code in production
+      if (Application.isDebugMode) {
+        error.printStackTrace();
+      }
     } finally {
       try {
         if (connection != null) {
@@ -71,7 +74,9 @@ public class IndexController {
           statement.close();
         }
       } catch (SQLException error) {
-        error.printStackTrace();
+        if (Application.isDebugMode) {
+          error.printStackTrace();
+        }
       }
     }
     return books;
