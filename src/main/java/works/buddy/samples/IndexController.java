@@ -1,4 +1,4 @@
-package com.github.hackathon.advancedsecurityjava.Controllers;
+package com.github.hackathon.advancedsecurityjava.controllers;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.github.hackathon.advancedsecurityjava.Application;
-import com.github.hackathon.advancedsecurityjava.Models.Book;
+import com.github.hackathon.advancedsecurityjava.models.Book;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,10 +39,10 @@ public class IndexController {
 
       if (bookname != null) {
         // Filter by book name
-        query = "SELECT * FROM Books WHERE name LIKE '%" + bookname + "%'";
+        query = "SELECT * FROM Books WHERE name LIKE '%" + bookname.replace("'", "''") + "%'";
       } else if (bookauthor != null) {
         // Filter by book author
-        query = "SELECT * FROM Books WHERE author LIKE '%" + bookauthor + "%'";
+        query = "SELECT * FROM Books WHERE author LIKE '%" + bookauthor.replace("'", "''") + "%'";
       } else if (bookread != null) {
         // Filter by if the book has been read or not
         Integer read = bookread ? 1 : 0;
