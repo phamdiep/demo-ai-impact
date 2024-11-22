@@ -1,5 +1,5 @@
 package works.buddy.samples;
-// do it faster
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -9,12 +9,14 @@ import java.io.PrintWriter;
 
 public class WorksWithHerokuServlet extends HttpServlet {
 
-    // what is this ?
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/plain");
         response.setStatus(404);
-        PrintWriter writer = response.getWriter();
-        writer.print("Buddy Works with Heroku");
-        writer.close();
+        try (PrintWriter writer = response.getWriter()) {
+            writer.print("Buddy Works with Heroku");
+        } catch (IOException e) {
+            throw new ServletException("Error while getting the writer", e);
+        }
     }
 }
